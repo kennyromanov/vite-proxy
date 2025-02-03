@@ -1,6 +1,9 @@
 import http from 'http';
 import { handleRequest } from './requestHandler';
 import { handleUpgrade } from './proxyHandler';
+import config from './config';
+
+const port = config?.port ?? 5000;
 
 function startServer(port: number) {
     const server = http.createServer((req, res) => {
@@ -17,5 +20,4 @@ function startServer(port: number) {
     });
 }
 
-// Start the server on port 5000 for demonstration.
-startServer(5000);
+startServer(port);

@@ -1,6 +1,6 @@
 import { IncomingMessage, ServerResponse } from 'http';
 import { proxyRequest } from './proxyHandler';
-import { getTargetFromUrl } from './router.ts';
+import { getTargetFromUrl } from './config.ts';
 
 export function handleRequest(req: IncomingMessage, res: ServerResponse) {
     try {

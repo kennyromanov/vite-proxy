@@ -177,4 +177,3 @@ dist
 # Custom
 package-lock.json
 bun.lockb
-.schema.json

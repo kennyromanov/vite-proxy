@@ -1,18 +1,19 @@
 {
-  "name": "hmr-proxy",
+  "name": "vite-proxy",
   "module": "index.ts",
   "type": "module",
+  "bin": {
+    "vite-proxy": "bin/start.sh"
+  },
   "scripts": {
-    "start": "bun index.ts"
+    "start": "bin/start.sh"
   },
   "devDependencies": {
-    "@types/bun": "latest"
-  },
-  "peerDependencies": {
+    "@types/bun": "latest",
+    "@types/http-proxy": "^1.17.15",
     "typescript": "^5.0.0"
   },
   "dependencies": {
-    "@types/http-proxy": "^1.17.15",
     "http-proxy": "^1.18.1"
   }
 }

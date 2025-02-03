@@ -1,7 +1,7 @@
 import { IncomingMessage, ServerResponse } from 'http';
 import { Socket } from 'net';
 import { createProxyServer } from 'http-proxy';
-import { getTargetFromUrl } from './router.ts';
+import { getTargetFromUrl } from './config.ts';
 
 // Create a single reusable proxy instance
 const proxy = createProxyServer({
