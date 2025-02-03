@@ -1,10 +1,13 @@
 {
   "name": "vite-proxy",
+  "version": "1.0.0",
+  "description": "A Vite and other tools proxy with HMR",
   "module": "index.ts",
   "type": "module",
   "bin": {
     "vite-proxy": "bin/start.sh"
   },
+  "main": "index.js",
   "scripts": {
     "start": "bin/start.sh"
   },
@@ -15,5 +18,10 @@
   },
   "dependencies": {
     "http-proxy": "^1.18.1"
-  }
+  },
+  "engines": {
+    "bun": ">=1.1"
+  },
+  "author": "Kenny Romanov",
+  "license": "MIT"
 }
