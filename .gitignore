@@ -175,5 +175,6 @@ dist
 .DS_Store
 
 # Custom
+package-lock.json
+bun.lockb
 .schema.json
-.schema.example.json

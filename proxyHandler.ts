@@ -33,7 +33,7 @@ export function proxyRequest(req: IncomingMessage, res: ServerResponse, targetOr
     proxy.web(
         req,
         res,
-        { target: targetOrigin, },
+        { target: targetOrigin },
         (error) => {
             console.error('Proxy.web encountered an error:', error);
             res.writeHead(500, { 'Content-Type': 'text/plain' });

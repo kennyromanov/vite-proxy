@@ -1,15 +1,20 @@
-# hmr-proxy
+# Vite proxy
 
-To install dependencies:
-
-```bash
-bun install
-```
-
-To run:
+### Install dependencies:
 
 ```bash
-bun run index.ts
+bun i
 ```
 
-This project was created using `bun init` in bun v1.1.38. [Bun](https://bun.sh) is a fast all-in-one JavaScript runtime.
+### Set up the schema:
+
+```bash
+cp .schema.example.json .schema.json
+vim .schema.json
+```
+
+### Run the app:
+
+```bash
+bun run start
+```
