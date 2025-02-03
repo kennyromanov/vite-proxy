@@ -1,3 +1,5 @@
+#!/usr/bin/env bun
+
 import http from 'http';
 import { handleRequest } from './requestHandler';
 import { handleUpgrade } from './proxyHandler';

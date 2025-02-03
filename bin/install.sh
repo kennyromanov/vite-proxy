@@ -25,4 +25,4 @@ check_dependency bun || {
 
 # Starting the application
 #echo "🎉 Installation completed! Starting the application..."
-#bin/start.sh
+#bun run start
