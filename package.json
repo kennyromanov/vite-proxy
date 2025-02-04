@@ -1,6 +1,6 @@
 {
   "name": "hmr-proxy",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "A Vite and other tools proxy with HMR",
   "module": "index.ts",
   "type": "module",
