@@ -1,6 +1,7 @@
 import { IncomingMessage, ServerResponse } from 'http';
 import { proxyRequest } from './proxyHandler';
-import { getTargetFromUrl } from './config.ts';
+import { err, log, warn } from './logger';
+import { getTargetFromUrl } from './config';
 
 export function handleRequest(req: IncomingMessage, res: ServerResponse) {
     try {
@@ -11,12 +12,12 @@ export function handleRequest(req: IncomingMessage, res: ServerResponse) {
             return;
         }
 
-        console.log('Request URL:', req.url);
+        log('(/) Request URL: ' + req.url, 'blue');
 
         // Retrieve the target origin from the URL using the routes map
         const targetOrigin = getTargetFromUrl(req.url);
         if (!targetOrigin) {
-            console.warn('Problem: no origin found for this URL');
+            warn('Problem: no origin found for this URL');
             res.writeHead(404, { 'Content-Type': 'text/plain' });
             res.end('No origin found for this path');
             return;
@@ -25,7 +26,7 @@ export function handleRequest(req: IncomingMessage, res: ServerResponse) {
         // Pass control to the proxy handler
         proxyRequest(req, res, targetOrigin);
     } catch (exception: any) {
-        console.error(`Request URL: ${req.url}, Exception:`, exception);
+        err(exception, `Request URL '${req.url}'`);
         res.statusCode = 500;
         res.statusMessage = String(exception);
         res.end('Internal Server Error');

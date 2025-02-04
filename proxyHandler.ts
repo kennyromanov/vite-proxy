@@ -1,7 +1,8 @@
 import { IncomingMessage, ServerResponse } from 'http';
 import { Socket } from 'net';
 import { createProxyServer } from 'http-proxy';
-import { getTargetFromUrl } from './config.ts';
+import {err, err as logErr, log, warn} from './logger';
+import { getTargetFromUrl } from './config';
 
 // Create a single reusable proxy instance
 const proxy = createProxyServer({
@@ -12,7 +13,7 @@ const proxy = createProxyServer({
 
 // Handle proxy errors globally
 proxy.on('error', (err, req, res) => {
-    console.error('Proxy error:', err);
+    logErr(err, 'Proxy error');
     if (res && 'writeHead' in res) {
         res.writeHead(500, { 'Content-Type': 'text/plain' });
         res.end('Proxy error');
@@ -28,14 +29,14 @@ export function proxyRequest(req: IncomingMessage, res: ServerResponse, targetOr
     // for example, /app1/api => http://example.com/api
     const targetUrl = `${targetOrigin}/${newPath}`;
 
-    console.log('Proxying request to:', targetUrl);
+    log('Proxying request to: ' + targetUrl);
 
     proxy.web(
         req,
         res,
         { target: targetOrigin },
         (error) => {
-            console.error('Proxy.web encountered an error:', error);
+            logErr(error, 'Proxy.web encountered an error');
             res.writeHead(500, { 'Content-Type': 'text/plain' });
             res.end('Error during proxying request');
         }
@@ -45,7 +46,7 @@ export function proxyRequest(req: IncomingMessage, res: ServerResponse, targetOr
 export function handleUpgrade(req: IncomingMessage, socket: Socket, head: Buffer) {
     const targetOrigin = getTargetFromUrl(req.url);
     if (!targetOrigin) {
-        console.warn('Problem: no origin found for WebSocket URL');
+        warn('Problem: no origin found for WebSocket URL');
         socket.destroy();
         return;
     }
@@ -54,7 +55,7 @@ export function handleUpgrade(req: IncomingMessage, socket: Socket, head: Buffer
     const wsPath = segments.slice(1).join('/');
     const wsTarget = `${targetOrigin.replace(/^http/, 'ws')}/${wsPath}`;
 
-    console.log('Proxying WebSocket to:', wsTarget);
+    log('(:) Proxying WebSocket to: ' + wsTarget, 'blue');
 
     proxy.ws(
         req,
@@ -62,7 +63,7 @@ export function handleUpgrade(req: IncomingMessage, socket: Socket, head: Buffer
         head,
         { target: wsTarget },
         (error) => {
-            console.error('Proxy.ws encountered an error:', error);
+            logErr(error, 'Proxy.ws encountered an error');
             socket.destroy();
         }
     );

@@ -15,10 +15,12 @@
   },
   "devDependencies": {
     "@types/bun": "latest",
+    "@types/chalk": "^2.2.4",
     "@types/http-proxy": "^1.17.15",
     "typescript": "^5.0.0"
   },
   "dependencies": {
+    "chalk": "^5.4.1",
     "http-proxy": "^1.18.1"
   },
   "engines": {
